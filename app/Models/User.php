@@ -12,6 +12,14 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    const ADMIN = 'ADMIN';
+    const USER = 'USER';
+    public function isAdmin() {
+        return $this->role == self::ADMIN;
+    }
+    public function isUser() {
+        return $this->role == self::USER;
+    }
     /**
      * The attributes that are mass assignable.
      *
@@ -21,6 +29,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**

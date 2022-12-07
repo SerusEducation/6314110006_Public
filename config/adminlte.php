@@ -307,9 +307,8 @@ return [
             'text' => 'search',
         ],
         [
-            'text' => 'blog',
-            'url'  => 'admin/blog',
-            'can'  => 'manage-blog',
+            'text' => 'Manage Product',
+            'url'  => 'product',
         ],
         [
             'text'        => 'pages',
