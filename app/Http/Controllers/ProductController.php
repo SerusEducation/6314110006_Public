@@ -14,7 +14,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('product.index');
+        $products = Product::all();
+        return view('backend.product.index', compact('products'));
     }
 
     /**
@@ -24,7 +25,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.product.create');
     }
 
     /**
@@ -35,7 +36,16 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $product = (new Product)->fill($request->all());
+        if ($request->file('product_image')) {
+            $file = $request->file('product_image');
+            $path = public_path('images\\');
+            $fileName = date('dmYHis').'.'.$file->extension();
+            $file->move($path, $fileName);
+            $product->product_image = $fileName;
+        }
+        $product->save();
+        return redirect()->route('product.index');
     }
 
     /**
@@ -46,7 +56,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        return view('backend.product.show');
     }
 
     /**
@@ -57,7 +67,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        return view('backend.product.edit');
     }
 
     /**
