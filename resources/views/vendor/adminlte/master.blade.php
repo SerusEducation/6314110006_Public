@@ -50,6 +50,7 @@
 
     {{-- Custom Stylesheets (post AdminLTE) --}}
     @yield('adminlte_css')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css">
 
     {{-- Favicon --}}
     @if(config('adminlte.use_ico_only'))
@@ -106,7 +107,7 @@
 
     {{-- Custom Scripts --}}
     @yield('adminlte_js')
-
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
 </body>
 
 </html>

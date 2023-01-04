@@ -25,7 +25,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('backend.product.create');
+        $product = new Product;
+        return view('backend.product.create', compact('product'));
     }
 
     /**
@@ -56,7 +57,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return view('backend.product.show');
+        return view('backend.product.show', compact('product'));
     }
 
     /**
@@ -67,7 +68,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        return view('backend.product.edit');
+        return view('backend.product.edit', compact('product'));
     }
 
     /**
@@ -79,7 +80,16 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $product->fill($request->all());
+        if ($request->file('product_image')) {
+            $file = $request->file('product_image');
+            $path = public_path('images\\');
+            $fileName = date('dmYHis').'.'.$file->extension();
+            $file->move($path, $fileName);
+            $product->product_image = $fileName;
+        }
+        $product->save();
+        return redirect()->route('product.index');
     }
 
     /**
@@ -90,6 +100,7 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $product->delete();
+        return redirect()->route('product.index');
     }
 }
