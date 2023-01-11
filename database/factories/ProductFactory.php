@@ -19,9 +19,11 @@ class ProductFactory extends Factory
      */
     public function definition()
     {
+        $scanned_directory = array_diff(scandir(public_path().'\images\\'), array('..', '.','danger.png'));
+        $images_collection = collect($scanned_directory);
         return [
             'product_name' => fake()->name(),
-            'product_image' => fake()->name().'.png',
+            'product_image' => $images_collection->random(),
             'product_description' => Str::random(100),
             'price' => rand(1, 1000) * 1.00,
         ];
