@@ -16,7 +16,8 @@ class CartController extends Controller
      */
     public function index()
     {
-        //
+        $carts = Auth::user()->carts;
+        return view('frontend.cart', compact('carts'));
     }
 
     /**
@@ -88,8 +89,22 @@ class CartController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Cart $cart)
     {
-        //
+        $cart->delete();
+        return back()->withSuccess('Delete product in cart successfully.');
+    }
+    public function increment(Cart $cart) {
+        $cart->quantity += 1;
+        $cart->save();
+        return back()->withSuccess('Increment product successfully.');
+    }
+    public function decrement(Cart $cart) {
+        if ($cart->quantity > 0) {
+            $cart->quantity -= 1;
+            $cart->save();
+            return back()->withSuccess('Decrement product successfully.');
+        }
+        return back()->withFail('Decrement product from 0 failed.');
     }
 }

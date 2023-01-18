@@ -20,6 +20,9 @@ class User extends Authenticatable
     public function isUser() {
         return $this->role == self::USER;
     }
+    public function carts() {
+        return $this->hasMany(Cart::class, 'user_id', 'id');
+    }
     /**
      * The attributes that are mass assignable.
      *

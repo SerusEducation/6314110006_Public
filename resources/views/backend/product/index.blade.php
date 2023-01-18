@@ -23,8 +23,7 @@
             <td>{{$product->product_description}}</td>
             <td class="text-center">
                 <a href="{{route('product.edit',$product->id)}}">
-                    @method('PUT')
-                    <button class="btn btn-warning text-white" type="submit">Edit</button>
+                    <button class="btn btn-warning text-white" type="button">Edit</button>
                 </a>
             </td>
             <td class="text-center">

@@ -31,4 +31,6 @@ Route::middleware(['auth', 'admin'])->group(function() {
 });
 Route::middleware(['auth'])->group(function() {
     Route::resource('cart', CartController::class);
+    Route::put('cart/{cart}/increment', [CartController::class, 'increment'])->name('cart.increment');
+    Route::put('cart/{cart}/decrement', [CartController::class, 'decrement'])->name('cart.decrement');;
 });

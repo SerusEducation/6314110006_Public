@@ -13,6 +13,7 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css">
+    <link rel="stylesheet" href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}">
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
@@ -31,15 +32,15 @@
                     toast.addEventListener('mouseleave', Swal.resumeTimer)
                 }
             });
-            @if (session('success'))
+            @if (session()->has('success'))
                 Toast.fire({
                     icon: 'success',
-                    title: 'Your task has been successfully'
+                    title: '{!! session('success')!!}'
                 })
-            @elseif (session('fail'))
+            @elseif (session()->has('fail'))
                 Toast.fire({
                     icon: 'error',
-                    title: 'Your task is fail'
+                    title: '{!!session('fail')!!}'
                 })
             @endif
         });
@@ -78,6 +79,14 @@
                                 </li>
                             @endif
                         @else
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('cart.index') }}">
+                                    <div class="position-relative">
+                                        <i class="fas fa-shopping-cart"></i>
+                                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{{Auth::user()->carts->sum('quantity')}}</span>
+                                    </div>
+                                </a>
+                            </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
