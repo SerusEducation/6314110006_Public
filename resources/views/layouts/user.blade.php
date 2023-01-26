@@ -23,6 +23,10 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @yield('script')
     <script>
+        const baht = new Intl.NumberFormat('th-TH', {
+            style: 'currency',
+            currency: 'THB',
+        });
         const Toast = Swal.mixin({
             toast: true,
             position: 'top-end',
@@ -53,6 +57,12 @@
                 icon: 'info',
                 title: msg
             })
+        }
+
+        function renderBaht() {
+            $('.baht').each((index, el) => {
+                $(el).val(baht.format($(el).val()));
+            });
         }
     </script>
 </head>
