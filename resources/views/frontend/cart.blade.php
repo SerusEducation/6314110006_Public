@@ -88,8 +88,10 @@
                 },
                 success: (response) => {
                     if (response.status == "success") {
-                        alertSwal(
-                            `Decrement to product id ${product_id} to ${response.quantity} successfully!`);
+                        alertSwal(`Decrement to product id ${product_id} to ${response.quantity} successfully!`);
+                        if (response.quantity <= 0){
+                            location.reload();
+                        }
                         $(`#quantity${product_id}`).val(response.quantity);
                         $(`#total${product_id}`).val(response.quantity * price);
                         calculateSum();

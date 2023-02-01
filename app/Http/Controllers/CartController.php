@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\Order;
+use App\Models\OrderDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -91,20 +93,24 @@ class CartController extends Controller
      */
     public function destroy(Cart $cart)
     {
-        $cart->delete();
-        return back()->withSuccess('Delete product in cart successfully.');
     }
-    public function increment(Cart $cart) {
-        $cart->quantity += 1;
-        $cart->save();
-        return back()->withSuccess('Increment product successfully.');
-    }
-    public function decrement(Cart $cart) {
-        if ($cart->quantity > 0) {
-            $cart->quantity -= 1;
-            $cart->save();
-            return back()->withSuccess('Decrement product successfully.');
+
+    public function checkOut(Request $request) {
+        $carts = Cart::where('user_id', $request->user_id)->get();
+
+        $order = new Order;
+        $order->fill($request->all());
+        $order->save();
+
+        foreach ($carts as $key => $cart) {
+            $orderDetail = new OrderDetail;
+            $orderDetail->fill($cart->toArray());
+            $orderDetail->order_id = $order->id;
+            $orderDetail->save();
         }
-        return back()->withFail('Decrement product from 0 failed.');
+
+        $carts->delete();
+
+        return back()->withSuccess('Create order successfully.');
     }
 }

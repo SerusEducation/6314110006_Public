@@ -38,6 +38,9 @@ class CartController extends Controller
                 $cart->update([
                     'quantity' => $cart->quantity - 1,
                 ]);
+                if ($cart->quantity <= 0) {
+                    $this->destroy($request);
+                }
                 return response()->json([
                     'status' => 'success',
                     'quantity' => $cart->quantity
