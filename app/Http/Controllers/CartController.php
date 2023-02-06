@@ -96,13 +96,13 @@ class CartController extends Controller
     }
 
     public function checkOut(Request $request) {
-        $carts = Cart::where('user_id', $request->user_id)->get();
+        $carts = Cart::where('user_id', $request->user_id);
 
         $order = new Order;
         $order->fill($request->all());
         $order->save();
 
-        foreach ($carts as $key => $cart) {
+        foreach ($carts as $cart) {
             $orderDetail = new OrderDetail;
             $orderDetail->fill($cart->toArray());
             $orderDetail->order_id = $order->id;

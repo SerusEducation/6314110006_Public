@@ -11,7 +11,7 @@ class Order extends Model
 
     protected $table = 'orders';
     protected $fillable = [
-        'user_id', 'order_no', 'address', 'tel', 'deliver_fee', 'status', 'slip'
+        'user_id', 'order_no', 'address', 'tel', 'delivery_fee', 'status', 'slip'
     ];
 
     public function user()
@@ -19,6 +19,10 @@ class Order extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function orderDetails()
+    {
+        return $this->hasMany(OrderDetail::class);
+    }
     private function generateOrderNo() {
         $lastOrder = Order::where('created_at', date('Y'))->orderBy('order_no', 'DESC')->first();
         if ($lastOrder) {
