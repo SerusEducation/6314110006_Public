@@ -23,6 +23,26 @@ class User extends Authenticatable
     public function carts() {
         return $this->hasMany(Cart::class, 'user_id', 'id');
     }
+    public function ordersReject()
+    {
+        return $this->hasMany(Order::class)->where('status', 'reject');
+    }
+    public function ordersInprogress()
+    {
+        return $this->hasMany(Order::class)->where('status', 'in progress');
+    }
+    public function ordersApprove()
+    {
+        return $this->hasMany(Order::class)->where('status', 'approve');
+    }
+    public function ordersCancel()
+    {
+        return $this->hasMany(Order::class)->where('status', 'cancel');
+    }
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
     /**
      * The attributes that are mass assignable.
      *

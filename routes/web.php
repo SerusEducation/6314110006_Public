@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
@@ -34,4 +35,5 @@ Route::middleware(['auth'])->group(function() {
     Route::put('cart/{cart}/increment', [CartController::class, 'increment'])->name('cart.increment');
     Route::put('cart/{cart}/decrement', [CartController::class, 'decrement'])->name('cart.decrement');;
     Route::post('cart/checkout', [CartController::class, 'checkOut'])->name('cart.checkout');;
+    Route::get('history', [HistoryController::class, 'index'])->name('history.index');;
 });

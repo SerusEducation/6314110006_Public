@@ -102,7 +102,7 @@ class CartController extends Controller
         $order->fill($request->all());
         $order->save();
 
-        foreach ($carts as $cart) {
+        foreach ($carts->get() as $cart) {
             $orderDetail = new OrderDetail;
             $orderDetail->fill($cart->toArray());
             $orderDetail->order_id = $order->id;

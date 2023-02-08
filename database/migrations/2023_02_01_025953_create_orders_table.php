@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('order_no', 14);
             $table->text('address');
             $table->string('tel', 20);
-            $table->double('delivery_fee', 4, 2)->nullable();
+            $table->double('delivery_fee', 4, 2)->unsigned()->nullable();
             $table->enum('status', ['in progress', 'approve', 'reject', 'cancel'])->default('in progress');
             $table->string('slip', 100)->nullable();
             $table->timestamps();

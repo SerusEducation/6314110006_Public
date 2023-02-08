@@ -112,6 +112,15 @@
                                     </div>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('history.index') }}">
+                                    <div class="position-relative">
+                                        <i class="fas fa-clock"></i>
+                                        <span
+                                            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">{{ Auth::user()->ordersInprogress->count() }}</span>
+                                    </div>
+                                </a>
+                            </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

@@ -24,7 +24,7 @@ class Order extends Model
         return $this->hasMany(OrderDetail::class);
     }
     private function generateOrderNo() {
-        $lastOrder = Order::where('created_at', date('Y'))->orderBy('order_no', 'DESC')->first();
+        $lastOrder = Order::whereYear('created_at', date('Y'))->orderBy('order_no', 'DESC')->first();
         if ($lastOrder) {
             $last_no = intval(explode('-', $lastOrder->order_no)[1]) + 1;
             $orderNo = date('Ymd')."-".str_pad($last_no,5,0,STR_PAD_LEFT);
