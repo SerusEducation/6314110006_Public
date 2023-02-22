@@ -9,6 +9,7 @@ class Order extends Model
 {
     use HasFactory;
 
+    public const STATUS = ['in progress', 'approve', 'reject', 'cancel'];
     protected $table = 'orders';
     protected $fillable = [
         'user_id', 'order_no', 'address', 'tel', 'delivery_fee', 'status', 'slip'
